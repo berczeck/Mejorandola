@@ -27,6 +27,11 @@
 				Publicar
 			</a>
 		</div>
+		<div>
+			<a href="#14" class="sizer">A</a>
+			<a href="#16" class="sizer">A</a>
+			<a href="#18" class="sizer">A</a>
+		</div>
 	</div>
 	<div class="usuario">
 		<figure class="avatar">
@@ -300,12 +305,51 @@
 			$('input[type=text]').val('');
 			$('form').slideUp();
 		}
+
+		function crearSizer(pixeles){
+			return function(){
+				$('body').css('font-size',pixeles+'px')
+			};
+		}
+
+		$('.sizer').each(function(i,link){
+			var pixeles = $(link).prop('hash').substring(1);
+			$(link).css('font-size',pixeles+'px').on('click',crearSizer(pixeles));
+		});
+
+		function crearContador(valorInicial){
+			var contador = valorInicial || 0;
+			return {
+				up : function(){
+					return ++contador;
+				},
+				down: function(){
+					return --contador;
+				}
+			};
+		}
+
+		$('.total').each(function(i,elem){
+			var contTotal = crearContador(elem.innerHTML);
+			$(elem)
+				.siblings('.up')
+					.on('click', function(evt){
+						evt.preventDefault();
+						$(elem).html(contTotal.up());
+					})
+				.siblings('.down')
+					.on('click',function(evt){
+						evt.preventDefault();
+						$(elem).html(contTotal.down());
+					});
+		});
+
 	});
 
 	/*
 	# = id
 	. = class
-	[type] = objeto
+	tag = tag => a body head
 	function darBienvenida(){
 		alert('Bienvenido');
 	}
