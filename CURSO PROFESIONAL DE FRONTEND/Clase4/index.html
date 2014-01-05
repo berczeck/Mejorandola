@@ -4,7 +4,7 @@
 	<meta charset="utf-8"/>
 	<!--Para adaptar el contenido a los moviles-->
 	<meta name="viewport" 
-		content="width=device-width, initial-scale=1, maximun-scale=1">
+		content="width=device-width, initial-scale=1">
 	<title>Puls4: Comunidad</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/puls4.css">
@@ -299,6 +299,8 @@
 				$(template).fadeIn(
 					function(){
 						$(this).css('display','inline-block');
+						var elem = $(this).children(".acciones").children(".votos").find(".total").get(0);
+						asignarEventoVoto(elem);
 					}
 				)
 			);
@@ -328,8 +330,29 @@
 				}
 			};
 		}
-
+		
 		$('.total').each(function(i,elem){
+			asignarEventoVoto(elem);
+		});
+
+		function asignarEventoVoto(elem){
+			var contTotal = crearContador(elem.innerHTML);
+			$(elem)
+				.siblings('.up')
+					.on('click', function(evt){
+						evt.preventDefault();
+						$(elem).html(contTotal.up());
+					})
+				.siblings('.down')
+					.on('click',function(evt){
+						evt.preventDefault();
+						$(elem).html(contTotal.down());
+					});
+		}
+		
+		/*
+		$('.posts').on('click','.post',function(){
+			var elem = $(this).children(".acciones").children(".votos").find(".total").get(0);
 			var contTotal = crearContador(elem.innerHTML);
 			$(elem)
 				.siblings('.up')
@@ -343,7 +366,15 @@
 						$(elem).html(contTotal.down());
 					});
 		});
-
+		*/
+		//Agregar evento a todos los hijos existenes y nuevos
+		/*
+		$('.posts').on('click','.post',function(){
+			$(this).css({
+				background : "red"
+			});
+		});
+		*/
 	});
 
 	/*
