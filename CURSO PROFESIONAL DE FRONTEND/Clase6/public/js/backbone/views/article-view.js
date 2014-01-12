@@ -12,17 +12,23 @@ Puls4.Views.Article = Backbone.View.extend({
 		//this.$el objeto que tiene el dom de la vista
 		console.log(this.$el);
 
-		this.model.on('change',function(model){
-			self.render();
+		this.model.on('change',function(){
+			if(window.app.state === "asrticleSingle"){
+				self.extendedRender();	
+			}else{
+				self.render();
+			}			
 		});
 
 		window.routers.base.on("route:root", function(){
 			self.$el.css("display","");
+			self.render();
 		});
 
 		window.routers.base.on("route:articleSingle", function(){
 			if(window.app.article === self.model.get("id")){
 				console.log("Render extendido");
+				self.extendedRender();
 			}else{
 				self.$el.hide();
 			}
@@ -30,6 +36,7 @@ Puls4.Views.Article = Backbone.View.extend({
 
 		//this.template = _.template($("#article-template").html());
 		this.template = swig.compile($("#article-template").html());
+		this.templateExtended = swig.compile($("#article-extended-template").html());
 	},
 	navigate: function(argument){
 		Backbone.history.navigate("article/"+this.model.get("id"),{trigger: true});
@@ -48,6 +55,13 @@ Puls4.Views.Article = Backbone.View.extend({
 		this.model.set('votes',--votes);
 		this.model.save();
 		return false;
+	},
+	extendedRender : function(){
+		var data = this.model.toJSON();
+
+		var html = this.templateExtended(data);
+
+		this.$el.html(html);
 	},
 	render : function(){
 		var data = this.model.toJSON();

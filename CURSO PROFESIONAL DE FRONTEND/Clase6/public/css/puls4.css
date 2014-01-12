@@ -6,7 +6,7 @@ footer h3{font-size:14px;font-weight:normal;}
 footer h3 strong{display:block}
 footer h3 .mejor:before,footer h3 .mejor:after{content:" - "}
 header{background:#444;box-shadow:0 5px 0 rgba(0,0,0,0.2);color:#fff;overflow:hidden;padding:.5em;position:relative;z-index:2;}
-header .logo{border-right:1px solid #22bce0;float:left;width:60px;}
+header .logo{border-right:1px solid #22bce0;cursor:pointer;float:left;width:60px;}
 header .logo img{width:52px}
 header .titular{margin:0 80px 0 70px;}
 header .titular .filtro{color:#22bce0;font-size:14px;font-style:italic;font-weight:bold;text-decoration:none}
@@ -39,6 +39,7 @@ nav .menu li a:hover{background:rgba(0,0,0,0.1)}
 .posts .post .acciones .votos .down:before{content:"\e602"}
 .posts .post .acciones .votos .up{color:#008000;}
 .posts .post .acciones .votos .up:before{content:"\e603"}
+.posts .post .descripcion.extended .detalles{height:auto;padding-bottom:20px}
 .posts .post .descripcion .detalles{height:160px;margin-left:130px;}
 .posts .post .descripcion .detalles .autor{margin:.5em 0 2em 0}
 .posts .post .descripcion .detalles .fecha{float:right;margin:0 1em 0 0}
